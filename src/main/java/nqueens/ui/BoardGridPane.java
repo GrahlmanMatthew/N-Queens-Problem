@@ -56,7 +56,7 @@ public class BoardGridPane extends GridPane {
         backgrounds[col][row] = bg;
 
         Label queen = new Label(QUEEN_SYMBOL);
-        queen.setStyle("-fx-font-size: " + (cellSize * 0.6) + "px; -fx-text-fill: white;");
+        queen.setStyle("-fx-font-size: " + (cellSize * 0.6) + "px; -fx-text-fill: black;");
         queen.setVisible(false);
         queens[col][row] = queen;
 

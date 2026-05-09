@@ -9,7 +9,7 @@ Animated side-by-side visualisation of two algorithms racing to solve the N-Quee
 
 ## Demo
 
-> 📸 *Demo GIF coming soon — to be recorded after first working build.*
+![N-Queens animated demo](output/demo.gif)
 
 ---
 
