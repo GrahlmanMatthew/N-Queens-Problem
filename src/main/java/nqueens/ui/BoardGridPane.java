@@ -65,6 +65,13 @@ public class BoardGridPane extends GridPane {
     }
 
     private void showQueen(int col, int boardRow) {
+        // Backtracking moves a queen to a new row in the same column without
+        // always emitting REMOVE first — clear the whole column before placing.
+        for (int row = 0; row < n; row++) {
+            if (queens[col][row].isVisible()) {
+                clearCell(col, row);
+            }
+        }
         queens[col][boardRow].setVisible(true);
         backgrounds[col][boardRow].setFill(naturalColor(col, boardRow));
     }
