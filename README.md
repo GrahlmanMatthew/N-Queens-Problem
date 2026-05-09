@@ -1,71 +1,80 @@
 # N-Queens Problem 👑
 
-Place N queens on an N×N chessboard so that no two queens attack each other — no shared row, column, or diagonal. The classic 8-queens puzzle has 92 distinct solutions.
+Animated side-by-side visualisation of two algorithms racing to solve the N-Queens problem — watch blind depth-first search and A* heuristic search compete in real time.
 
-This project explores the problem through two search strategies: a brute-force depth-first search and an A\* heuristic search that uses the number of conflicting queens as a guide. The difference in efficiency is striking — for N=8, blind search requires 764 attempts while A\* finds a solution in 47.
+![CI](https://github.com/GrahlmanMatthew/N-Queens-Problem/actions/workflows/ci.yml/badge.svg)
+![GitHub release](https://img.shields.io/github/v/release/GrahlmanMatthew/N-Queens-Problem)
+
+---
+
+## Demo
+
+![N-Queens animated demo](output/demo.gif)
+
+---
+
+## How it works
+
+Place N queens on an N×N chessboard so that no two share a row, column, or diagonal. The classic 8-queens puzzle has 92 distinct solutions.
+
+Two fundamentally different strategies attack the same problem simultaneously:
+
+**Blind Search (Depth-First)** places queens column by column, trying each row in order. When a conflict is detected it backtracks to the previous column and increments the row. No domain knowledge is used — it explores the space exhaustively. For N=8 this takes 764 attempts.
+
+**Heuristic Search (A\*)** starts from a randomly seeded board with all queens already placed. Each iteration picks the board state with the fewest conflicting pairs and expands it by trying every possible single-queen move. The heuristic guides the search toward valid configurations — N=8 needs only 47 attempts.
+
+The contrast is the whole point: watching both boards animate in parallel makes the efficiency gap immediately visible.
 
 ---
 
 ## Origin
 
-This started as **Assignment 1 for COSC 3P71 — Introduction to Artificial Intelligence** at Brock University, submitted in October 2017. The original implementation is preserved here as a historical baseline before the project was expanded with a visual interface. The algorithms and core logic are unchanged from the 2017 submission.
+This started as **Assignment 1 for COSC 3P71 — Introduction to Artificial Intelligence** at Brock University, submitted in October 2017. The original implementation is preserved verbatim as a historical baseline — the algorithm logic in `NQueens.java` and `Board.java` is unchanged from the 2017 submission.
 
 ---
 
-## Algorithms
-
-**Blind Search (Depth-First)**  
-Places queens column by column, trying each row in order. When a conflict is detected it backtracks to the previous column and tries the next row. No domain knowledge is used — it explores the space exhaustively until a valid placement is found.
-
-**Heuristic Search (A\*)**  
-Starts from a randomly seeded board with all queens placed. Each iteration selects the board state with the lowest heuristic value (number of conflicting queen pairs) and expands it into all possible single-queen moves. Continues until a conflict-free board is found.
-
----
-
-## Results (N=8, Seed=21)
-
-| Algorithm | Attempts to Solution |
-|-----------|---------------------|
-| Blind Search (DFS) | 764 |
-| Heuristic Search (A\*) | 47 |
-
----
-
-## Requirements
+## Prerequisites
 
 - Java 21+
 - Maven 3.6+
 
 ---
 
-## Build & Run
+## Installation and setup
 
-**Compile:**
 ```bash
-mvn compile
-```
-
-**Run:**
-```bash
-mvn exec:java
-```
-
-Output is written to `output.txt` in the working directory. Each run appends results so you can compare across configurations.
-
-**Run directly (alternative):**
-```bash
-mvn package
-java -cp target/n-queens-problem-1.0-SNAPSHOT.jar nqueens.NQueens
+git clone https://github.com/GrahlmanMatthew/N-Queens-Problem.git
+cd N-Queens-Problem
 ```
 
 ---
 
-## Project Structure
+## Usage
 
-```
-src/main/java/nqueens/
-├── NQueens.java   — main class; blind search and A* search implementations
-└── Board.java     — board state model; heuristic calculation and next-state generation
+**Run the visualisation:**
+
+```bash
+mvn javafx:run
 ```
 
-Board state is represented as a 1D array where `board[column] = row` (1-indexed rows, 0-indexed columns).
+The app opens with two animated boards. Use the controls at the bottom to:
+- Set N (board size, 4–20)
+- Adjust animation speed
+- Start or reset the race
+
+**Run the original CLI solver (outputs to `output.txt`):**
+
+```bash
+mvn compile exec:java -Dexec.mainClass="nqueens.NQueens"
+```
+
+---
+
+## Running the tests
+
+```bash
+mvn test
+```
+
+---
+

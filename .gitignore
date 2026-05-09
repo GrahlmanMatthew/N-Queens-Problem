@@ -1,6 +1,28 @@
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Java / Maven
 target/
 *.class
+*.jar
+.gradle/
+build/
+
+# Output files
 output.txt
+
+# IDE
 .idea/
 *.iml
 .vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+logs/
