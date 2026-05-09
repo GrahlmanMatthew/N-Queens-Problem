@@ -8,8 +8,11 @@ import nqueens.solver.HeuristicSolver;
 
 public class CompetitionView extends HBox {
 
+    public enum RunState { IDLE, RUNNING, PAUSED }
+
     private final SolverLane blindLane;
     private final SolverLane heuristicLane;
+    private RunState runState = RunState.IDLE;
 
     public CompetitionView(int n) {
         blindLane     = new SolverLane(new BlindSearchSolver(), n);
@@ -21,14 +24,32 @@ public class CompetitionView extends HBox {
         getChildren().addAll(blindLane, heuristicLane);
     }
 
+    public RunState getRunState() {
+        return runState;
+    }
+
     public void start(int n) {
         blindLane.start(n);
         heuristicLane.start(n);
+        runState = RunState.RUNNING;
     }
 
-    public void stop() {
-        blindLane.stop();
-        heuristicLane.stop();
+    public void pause() {
+        blindLane.pause();
+        heuristicLane.pause();
+        runState = RunState.PAUSED;
+    }
+
+    public void resume() {
+        blindLane.resume();
+        heuristicLane.resume();
+        runState = RunState.RUNNING;
+    }
+
+    public void reset(int n) {
+        blindLane.reset(n);
+        heuristicLane.reset(n);
+        runState = RunState.IDLE;
     }
 
     public void setTickIntervalMs(double ms) {

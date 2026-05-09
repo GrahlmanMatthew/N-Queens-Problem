@@ -63,9 +63,25 @@ public class SolverLane extends VBox {
         animationTimer.start();
     }
 
+    public void pause() {
+        if (animationTimer != null) animationTimer.stop();
+    }
+
+    public void resume() {
+        if (animationTimer != null) animationTimer.start();
+    }
+
     public void stop() {
         if (animationTimer != null) animationTimer.stop();
         if (solverThread != null) solverThread.interrupt();
+    }
+
+    public void reset(int n) {
+        stop();
+        board.reset(n);
+        attemptsLabel.setText("Attempts: 0");
+        statusLabel.setText("Ready");
+        statusLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: #888888;");
     }
 
     public void setTickIntervalMs(double ms) {
@@ -93,7 +109,7 @@ public class SolverLane extends VBox {
                     if (event.type() == SolverEventType.SOLUTION) {
                         double elapsed = (System.nanoTime() - startNanos) / 1e9;
                         statusLabel.setText(String.format("Solved in %.2fs", elapsed));
-                        statusLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: #FFD700;");
+                        statusLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: #43A047;");
                         stop();
                         break;
                     }

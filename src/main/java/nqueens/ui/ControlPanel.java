@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.HBox;
+import nqueens.ui.CompetitionView.RunState;
 
 public class ControlPanel extends HBox {
 
@@ -14,8 +15,13 @@ public class ControlPanel extends HBox {
     private static final int N_MAX     = 20;
     private static final int N_DEFAULT = 8;
 
+    private static final String STYLE_PLAY  = "#1565C0";
+    private static final String STYLE_PAUSE = "#E65100";
+    private static final String STYLE_RESET = "#424242";
+
     private final CompetitionView view;
     private final Spinner<Integer> nSpinner;
+    private final Button toggleButton;
 
     public ControlPanel(CompetitionView view) {
         this.view = view;
@@ -26,16 +32,13 @@ public class ControlPanel extends HBox {
 
         Slider speedSlider = buildSpeedSlider();
 
-        Button startButton = new Button("▶  Start");
-        startButton.setStyle(buttonStyle("#1565C0"));
-        startButton.setOnAction(e -> view.start(nSpinner.getValue()));
+        toggleButton = new Button("▶  Start");
+        toggleButton.setStyle(buttonStyle(STYLE_PLAY));
+        toggleButton.setOnAction(e -> handleToggle());
 
         Button resetButton = new Button("↺  Reset");
-        resetButton.setStyle(buttonStyle("#424242"));
-        resetButton.setOnAction(e -> {
-            view.stop();
-            view.start(nSpinner.getValue());
-        });
+        resetButton.setStyle(buttonStyle(STYLE_RESET));
+        resetButton.setOnAction(e -> handleReset());
 
         setAlignment(Pos.CENTER);
         setSpacing(16);
@@ -44,8 +47,34 @@ public class ControlPanel extends HBox {
         getChildren().addAll(
                 styledLabel("N:"), nSpinner,
                 styledLabel("Speed:"), speedSlider,
-                startButton, resetButton
+                toggleButton, resetButton
         );
+    }
+
+    private void handleToggle() {
+        switch (view.getRunState()) {
+            case IDLE -> {
+                view.start(nSpinner.getValue());
+                toggleButton.setText("⏸  Pause");
+                toggleButton.setStyle(buttonStyle(STYLE_PAUSE));
+            }
+            case RUNNING -> {
+                view.pause();
+                toggleButton.setText("▶  Resume");
+                toggleButton.setStyle(buttonStyle(STYLE_PLAY));
+            }
+            case PAUSED -> {
+                view.resume();
+                toggleButton.setText("⏸  Pause");
+                toggleButton.setStyle(buttonStyle(STYLE_PAUSE));
+            }
+        }
+    }
+
+    private void handleReset() {
+        view.reset(nSpinner.getValue());
+        toggleButton.setText("▶  Start");
+        toggleButton.setStyle(buttonStyle(STYLE_PLAY));
     }
 
     private Slider buildSpeedSlider() {

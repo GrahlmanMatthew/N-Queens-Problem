@@ -26,9 +26,6 @@ public class NQueensApp extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
-
-        // Auto-start so the boards are animated on launch
-        competitionView.start(DEFAULT_N);
     }
 
     @Override

@@ -12,7 +12,7 @@ public class BoardGridPane extends GridPane {
     private static final Color LIGHT_SQUARE = Color.web("#F0D9B5");
     private static final Color DARK_SQUARE  = Color.web("#B58863");
     private static final Color CONFLICT     = Color.web("#e53935");
-    private static final Color SOLUTION     = Color.web("#FFD700");
+    private static final Color SOLUTION     = Color.web("#43A047");
     private static final String QUEEN_SYMBOL = "♛";
 
     private Rectangle[][] backgrounds;
