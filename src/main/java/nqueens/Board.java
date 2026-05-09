@@ -63,7 +63,7 @@ public class Board implements Comparable <Board> {
 	 		// Check Upper Left Diagonal
 			nCol = a - 1;
 			nRow = curBoard[a] - 1;
-			while (nCol >= 0 && nRow <= n){		// BUG: condition should be nRow > 0
+			while (nCol >= 0 && nRow > 0){
 				if (curBoard[nCol] == nRow){
 					conflicts++;		// If there is a Conflict
 			}
