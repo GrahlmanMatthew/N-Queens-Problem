@@ -15,7 +15,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Pinned to match Java 21 LTS — JavaFX 26 requires Java 26 module path -->
         <javafx.version>21.0.5</javafx.version>
-        <junit.version>6.1.0</junit.version>
+        <junit.version>6.1.1</junit.version>
     </properties>
 
     <dependencies>
